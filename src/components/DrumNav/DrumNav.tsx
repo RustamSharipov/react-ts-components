@@ -8,7 +8,8 @@ interface IProps {
 
 const DrumNav: FC<IProps> = ({ items }) => {
   const [isSwipe, setSwipe] = useState(false)
-  const [currentPosition, setCurrentPosition] = useState<number>()
+  const [lastPosition, setLastPosition] = useState(0)
+  const [leftOffset, setLeftOffset] = useState(0)
 
   const handleSwipeStart = () => {
     setSwipe(true)
@@ -21,12 +22,19 @@ const DrumNav: FC<IProps> = ({ items }) => {
   const handleCursorPosition = (event: any) => {
     if (isSwipe) {
       const { clientX } = event
-      setCurrentPosition(clientX)
+
+      setTimeout(
+        () => {
+          setLastPosition(clientX)
+          setLeftOffset(clientX - lastPosition)
+        },
+        100,
+      )
     }
   }
 
   const renderItems = () =>
-    <Group>
+    <Group leftOffset={leftOffset}>
       {items.map(item => (
         <Item
           key={item.value}
@@ -35,7 +43,7 @@ const DrumNav: FC<IProps> = ({ items }) => {
         />
       ))}
     </Group>
-  console.log(currentPosition)
+
   return (
     <Wrapper
       onMouseMove={handleCursorPosition}

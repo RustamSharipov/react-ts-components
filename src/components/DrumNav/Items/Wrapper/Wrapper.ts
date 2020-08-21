@@ -6,6 +6,7 @@ export default styled.div`
   justify-content: center;
   position: absolute;
   left: 50%;
-  transform: translate(-50%);
   width: 100%;
+  transform: translate(-50%);
+  transition: transform 0.25s;
 `
