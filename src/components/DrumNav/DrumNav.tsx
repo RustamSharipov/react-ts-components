@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Group, Item, Items, Wrapper } from '.'
 
@@ -7,6 +7,24 @@ interface IProps {
 }
 
 const DrumNav: FC<IProps> = ({ items }) => {
+  const [isSwipe, setSwipe] = useState(false)
+  const [currentPosition, setCurrentPosition] = useState<number>()
+
+  const handleSwipeStart = () => {
+    setSwipe(true)
+  }
+
+  const handleSwipeStop = () => {
+    setSwipe(false)
+  }
+
+  const handleCursorPosition = (event: any) => {
+    if (isSwipe) {
+      const { clientX } = event
+      setCurrentPosition(clientX)
+    }
+  }
+
   const renderItems = () =>
     <Group>
       {items.map(item => (
@@ -17,9 +35,14 @@ const DrumNav: FC<IProps> = ({ items }) => {
         />
       ))}
     </Group>
-
+  console.log(currentPosition)
   return (
-    <Wrapper>
+    <Wrapper
+      onMouseMove={handleCursorPosition}
+      onMouseDown={handleSwipeStart}
+      onMouseUp={handleSwipeStop}
+      onMouseLeave={handleSwipeStop}
+    >
       <Items>
         {renderItems()}
         {renderItems()}

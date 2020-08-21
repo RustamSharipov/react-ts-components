@@ -4,4 +4,5 @@ export default styled.div`
   position: relative;
   overflow: hidden;
   height: 3rem;
+  user-select: none;
 `
