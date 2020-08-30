@@ -1,26 +1,20 @@
 import Head from 'next/head'
 
+import { TSlider } from 'components'
+
+import data from 'data'
+
 export default function Home() {
   return (
-    <div>
+    <>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p>
-          Get started by editing
-        </p>
+        <TSlider data={data} />
       </main>
-
-      <footer>
-        
-      </footer>
-    </div>
+    </>
   )
 }
